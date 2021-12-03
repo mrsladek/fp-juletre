@@ -1,0 +1,11 @@
+management:
+  endpoint.health.show-details: always
+  endpoints.web:
+    exposure.include: info, health
+    base-path: "/actuator"
+
+logging:
+  config: "classpath:logback-spring.xml"
+
+server:
+  port: 8080

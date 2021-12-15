@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Kalender {
 
-    private static final Set<String> team = Set.of("AP", "AD", "AAL", "AGA", "BBS", "CH", "EW", "GR", "JEJ", "JOL", "KQ", "KJ", "MLW", "MJS", "PE", "SR", "SHP", "TR");
+    private static final Set<String> team = Set.of("AP", "AD", "ALL", "AGA", "BBS", "CH", "EW", "GR", "JEJ", "JOL", "KQ", "KJ", "MLW", "MJS", "PE", "SR", "SHP", "TR");
+    private static final Set<String> winners = Set.of("AD", "AGA", "EW", "GR", "JOL", "KQ", "KJ", "MLW", "PE", "TR");
 
     @GetMapping("/winner")
     ResponseEntity<String> getWinner() {
-        String[] teamArray = team.toArray(new String[0]);
+        String[] waitingToWin = team.stream().filter(it -> !winners.contains(it)).distinct().toArray(String[]::new);
         Random random = new Random();
-        var winner = teamArray[random.nextInt(team.size())];
+        var winner = waitingToWin[random.nextInt(team.size() - winners.size())];
         return ResponseEntity.ok().contentType(MediaType.TEXT_PLAIN).cacheControl(CacheControl.noCache())
                 .body(printTree() + LocalDate.now().toString() + System.getProperty("line.separator") + winner + " du vant! Gratulerer!");
     }

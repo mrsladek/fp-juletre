@@ -22,10 +22,10 @@ spec:
     timeout: 10
   resources:
     limits:
-      cpu: 500m
-      memory: 256Mi
-    requests:
       cpu: 200m
       memory: 128Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
   ingresses:
      - "https://fpjuletre.dev.intern.nav.no"
